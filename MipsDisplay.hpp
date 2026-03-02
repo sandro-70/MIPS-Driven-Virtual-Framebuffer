@@ -17,7 +17,9 @@ public:
     bool OnUserUpdate(float fElapsedTime) override;
     bool OnUserDestroy() override;
     void Flush();
+    void SetPixel(int x, int y, uint32_t color);
     void RunEngine();
+   
     void StopEngine();
     void Sleep(int ms);
 
@@ -27,11 +29,13 @@ public:
     int GetLastKey() const
     { return last_key; }
 
-    bool IsRunning() const
-    { return running; }
+    bool IsRunning() const;
+    
+ 
 
 private:
     std::atomic<bool> running = false;
+    
     int last_key = 0;
     uint32_t vram[SCREEN_W * SCREEN_H];
     std::thread thread_;

@@ -48,9 +48,25 @@ void MipsDisplay::Sleep(int ms)
 
 void MipsDisplay::Flush()
 {
-    for (int y = 0; y < SCREEN_H; y++)
-        for (int x = 0; x < SCREEN_W; x++)
-            Draw(x, y, olc::Pixel(vram[y * SCREEN_W + x]));
+    for (int y = 0; y < SCREEN_H; y++) {
+        for (int x = 0; x < SCREEN_W; x++) {
+
+            uint32_t c = vram[y * SCREEN_W + x];
+
+            uint8_t r = (c >> 16) & 0xFF;
+            uint8_t g = (c >> 8)  & 0xFF;
+            uint8_t b =  c        & 0xFF;
+
+            Draw(x, y, olc::Pixel(r, g, b));
+        }
+    }
+}
+void MipsDisplay::SetPixel(int x, int y, uint32_t color)
+{
+    if (x < 0 || x >= SCREEN_W || y < 0 || y >= SCREEN_H)
+        return;
+
+    vram[y * SCREEN_W + x] = color;
 }
 
 void MipsDisplay::RunEngine()
@@ -59,12 +75,15 @@ void MipsDisplay::RunEngine()
         running = true;
 
         if (Construct(SCREEN_W, SCREEN_H, PIXEL_SIZE, PIXEL_SIZE)) {
+            
             Start();
+            
         }
-
+        
         running = false;
     });
 }
+
 
 void MipsDisplay::StopEngine()
 {
