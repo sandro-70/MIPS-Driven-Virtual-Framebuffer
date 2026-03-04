@@ -62,7 +62,9 @@ extern "C" ErrorCode handleSyscall(uint32_t *regs, void *mem, MemoryMap *mem_map
         }
         case 103: //getKey
         {
-
+            
+            regs[Register::v0] = display.GetLastKey();
+            return ErrorCode::Ok;
         }
         case 104: //sleep
         {

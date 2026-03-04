@@ -33,12 +33,12 @@ bool MipsDisplay::OnUserUpdate(float fElapsedTime)
         last_key = 3;
     else if (GetKey(olc::Key::D).bHeld || GetKey(olc::Key::RIGHT).bHeld)
         last_key = 4;
-    else if (GetKey(olc::Key::SPACE).bHeld)
+    else if (GetKey(olc::Key::SPACE).bPressed)
         last_key = 5;
     else
         last_key = 0;
 
-    return running;
+    return true;
 }
 
 void MipsDisplay::Sleep(int ms)
