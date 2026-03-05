@@ -74,6 +74,7 @@ extern "C" ErrorCode handleSyscall(uint32_t *regs, void *mem, MemoryMap *mem_map
         case 105: //exitGraphics
         {
             display.StopEngine();
+            
             return ErrorCode::Ok;
         }
         default:

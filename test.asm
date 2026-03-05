@@ -15,8 +15,10 @@ main:
     li $s0 , 0x00FF0000; color 
     jal draw_rectangle
 
-    li $a0, 10
-    li $a1, 10
+    li $a0, 50
+    li $a1, 50
+    move $t8, $a0 ; x
+    move $t9, $a1 ; y
     li $a2, 0x00FFFFFF
     li $v0, 100
     syscall
@@ -51,11 +53,77 @@ loop:
 
 up_pressed:
 
+move $a0, $t8 ; x
+move $a1, $t9 ; y
+li $a2, 0x00000000
+li $v0, 100
+syscall
+
+addi $t9, $t9, -1
+move $a0, $t8 ; x
+move $a1, $t9 ;
+li $a2, 0x00FFFFFF
+li $v0, 100
+syscall
+li $v0, 101
+syscall
+
+j loop
+
 down_pressed:
+move $a0, $t8 ; x
+move $a1, $t9 ; y
+li $a2, 0x00000000
+li $v0, 100
+syscall
+
+addi $t9, $t9, 1
+move $a0, $t8 ; x
+move $a1, $t9 ;
+li $a2, 0x00FFFFFF
+li $v0, 100
+syscall
+li $v0, 101
+syscall
+
+j loop
 
 left_pressed:
+move $a0, $t8 ; x
+move $a1, $t9 ; y
+li $a2, 0x00000000
+li $v0, 100
+syscall
+
+addi $t8, $t8, -1
+move $a0, $t8 ; x
+move $a1, $t9 ;
+li $a2, 0x00FFFFFF
+li $v0, 100
+syscall
+li $v0, 101
+syscall
+
+j loop
 
 right_pressed:
+move $a0, $t8 ; x
+move $a1, $t9 ; y
+li $a2, 0x00000000
+li $v0, 100
+syscall
+
+addi $t8, $t8, 1
+move $a0, $t8 ; x
+move $a1, $t9 ;
+li $a2, 0x00FFFFFF
+li $v0, 100
+syscall
+li $v0, 101
+syscall
+
+j loop
+
 
 space_pressed:
 
